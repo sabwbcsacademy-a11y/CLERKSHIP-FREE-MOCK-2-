@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MM WBCS ACADEMY 9732974125 WBPSC EXAM ONLINE MOCK TEST 22</title>
+    <style>
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
+        body { background-color: #f4f7f6; color: #333; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; background: #fff; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { font-size: 20px; text-align: center; color: #1a5276; margin-bottom: 20px; border-bottom: 2px solid #1a5276; padding-bottom: 10px; }
+        
+        /* Form Styling */
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input[type="text"], input[type="tel"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px; }
+        .error-msg { color: #d9534f; font-size: 14px; margin-top: 5px; display: none; }
+        .btn { background-color: #27ae60; color: white; border: none; padding: 12px 20px; border-radius: 5px; cursor: pointer; font-size: 16px; width: 100%; font-weight: bold; }
+        .btn:hover { background-color: #219150; }
+        
+        /* Quiz Header */
+        #quiz-header { display: flex; justify-content: space-between; align-items: center; background: #eaeaea; padding: 10px 15px; border-radius: 5px; margin-bottom: 20px; position: sticky; top: 0; z-index: 100; }
+        #timer { font-size: 18px; font-weight: bold; color: #c0392b; }
+        
+        /* Question Card */
+        .q-card { margin-bottom: 20px; padding: 15px; border: 1px solid #e0e0e0; border-radius: 8px; background-color: #fafafa; }
+        .q-title { font-weight: bold; margin-bottom: 10px; }
+        .option-label { display: block; margin: 6px 0; padding: 8px 12px; border: 1px solid #ddd; border-radius: 5px; cursor: pointer; background: #fff; transition: 0.2s; }
+        .option-label:hover { background-color: #f0f0f0; }
+        .option-label input { margin-right: 10px; }
+        
+        /* Preview Results Highlights */
+        .correct-ans { background-color: #d4edda !important; border-color: #28a745 !important; color: #155724; font-weight: bold; }
+        .wrong-ans { background-color: #f8d7da !important; border-color: #dc3545 !important; color: #721c24; font-weight: bold; }
+        
+        #result-box { text-align: center; padding: 20px; background: #e8f8f5; border: 1px solid #a3e4d7; border-radius: 8px; margin-bottom: 20px; }
+        #result-box h2 { color: #117a65; margin-bottom: 10px; }
+        
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>MM WBCS ACADEMY 9732974125 WBPSC EXAM ONLINE MOCK TEST 22</h1>
+
+    <!-- Login Form -->
+    <div id="login-sec">
+        <form id="loginForm" onsubmit="startQuiz(event)">
+            <div class="form-group">
+                <label for="fullName">Full Name (পূর্ণ নাম):</label>
+                <input type="text" id="fullName" placeholder="Enter your full name" required>
+                <div id="nameError" class="error-msg">Invalid input! Only letters (English/Bengali) and spaces allowed.</div>
+            </div>
+            <div class="form-group">
+                <label for="mobileNum">Mobile Number (মোবাইল নম্বর):</label>
+                <input type="tel" id="mobileNum" placeholder="10 digit mobile number" required>
+                <div id="mobileError" class="error-msg">Invalid number! Please enter a valid 10-digit mobile number.</div>
+            </div>
+            <button type="submit" class="btn">Start Examination</button>
+        </form>
+    </div>
+
+    <!-- Quiz Section -->
+    <div id="quiz-sec" class="hidden">
+        <div id="quiz-header">
+            <div><strong>Candidate:</strong> <span id="candidate-name"></span></div>
+            <div id="timer">Time Remaining: 40:00</div>
+        </div>
+        
+        <form id="quizForm">
+            <div id="questions-container"></div>
+            <button type="button" class="btn" onclick="submitQuiz()">Submit Test</button>
+        </form>
+    </div>
+
+    <!-- Result Section -->
+    <div id="result-sec" class="hidden">
+        <div id="result-box">
+            <h2>Test Results</h2>
+            <p id="score-text" style="font-size: 18px; font-weight: bold;"></p>
+            <p id="sub-status" style="color: #666; margin-top: 5px;"></p>
+        </div>
+        <h3 style="margin-bottom: 15px; color: #333;">Answer Key & Review:</h3>
+        <div id="review-container"></div>
+    </div>
+</div>
+
+<script>
+    // Paste your Google Apps Script Web App URL here
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby9HwX7rfvsgtw7u2KOVTP_OvNS_rzFxZUVSfKdf4DL_kLiBnk6fMfGssOZBD3_dS0c/exec";
+
+    // 50 Questions Data Source from MOCK TEST-22
+    const quizData = [
+        { q: "১. প্রাচীন ভারতের ইতিহাসে ‘প্রয়াগ প্রশস্তি’ কে রচনা করেছিলেন?", options: ["(A) বাণভট্ট", "(B) হরিষেণ", "(C) কালিদাস", "(D) বিশাখদত্ত"], ans: 1 },
+        { q: "২. দিল্লি সুলতানির কোন শাসক ‘রক্ত ও লৌহনীতি’ অনুসরণ করেছিলেন?", options: ["(A) কুতুবউদ্দিন আইবক", "(B) ইলতুৎমিস", "(C) বলবন", "(D) ফিরোজ শাহ তুঘলক"], ans: 2 },
+        { q: "৩. চিরস্থায়ী বন্দোবস্ত বাংলায় কে প্রবর্তন করেন?", options: ["(A) লর্ড ওয়েলেসলি", "(B) লর্ড কর্নওয়ালিস", "(C) লর্ড ডালহৌসি", "(D) লর্ড কার্জন"], ans: 1 },
+        { q: "৪. ১৮৫৭ সালের মহাবিদ্রোহের সময় ভারতের গভর্নর জেনারেল কে ছিলেন?", options: ["(A) লর্ড ক্যানিং", "(B) লর্ড রিপন", "(C) লর্ড লিটন", "(D) লর্ড ডালহৌসি"], ans: 0 },
+        { q: "৫. ভারতীয় জাতীয় কংগ্রেসের প্রথম অধিবেশন কোথায় অনুষ্ঠিত হয়েছিল?", options: ["(A) কলকাতা", "(B) বোম্বাই", "(C) মাদ্রাজ", "(D) এলাহাবাদ"], ans: 1 },
+        { q: "৬. ভারতীয় জাতীয় কংগ্রেসের প্রথম সভাপতি কে ছিলেন?", options: ["(A) দাদাভাই নওরোজি", "(B) সুরেন্দ্রনাথ বন্দ্যোপাধ্যায়", "(C) উমেশচন্দ্র বন্দ্যোপাধ্যায়", "(D) ফিরোজশাহ মেহতা"], ans: 2 },
+        { q: "৭. ২০২৫ সালের World Happiness Report-এ ভারতের স্থান কত ছিল?", options: ["(A) ৯৯তম", "(B) ১১৮তম", "(C) ১৩০তম", "(D) ১৪০তম"], ans: 1 },
+        { q: "৮. গান্ধিজির নেতৃত্বে ভারতে প্রথম সত্যাগ্রহ আন্দোলন কোন স্থানে সংঘটিত হয়েছিল?", options: ["(A) চম্পারণ", "(B) বারদোলি", "(C) ডান্ডি", "(D) লখনউ"], ans: 0 },
+        { q: "৯. ‘পূর্ণ স্বরাজ’ প্রস্তাব ভারতীয় জাতীয় কংগ্রেসের কোন অধিবেশনে গৃহীত হয়েছিল?", options: ["(A) সুরাট অধিবেশন, ১৯০৭", "(B) লাহোর অধিবেশন, ১৯২৯", "(C) করাচি অধিবেশন, ১৯৩১", "(D) লখনউ অধিবেশন, ১৯১৬"], ans: 1 },
+        { q: "১০. ভারতের দীর্ঘতম নদী সম্পূর্ণভাবে ভারতের ভূখণ্ডের মধ্যে প্রবাহিত হয়েছে কোনটি?", options: ["(A) গঙ্গা", "(B) ব্রহ্মপুত্র", "(C) গোদাবরী", "(D) সিন্ধু"], ans: 2 },
+        { q: "১১. ভারতের কোন রাজ্যে কালো মাটি সবচেয়ে বেশি বিস্তৃত?", options: ["(A) রাজস্থান", "(B) মহারাষ্ট্র", "(C) পাঞ্জাব", "(D) বিহার"], ans: 1 },
+        { q: "১২. ইংরেজি বর্ণমালার ধারাটির পরবর্তী অক্ষর কী? A, C, F, J, O,?", options: ["(A) T", "(B) U", "(C) V", "(D) W"], ans: 1 },
+        { q: "১৩. UNDP-এর Human Development Report 2025 অনুযায়ী, মানব উন্নয়ন সূচকে ভারতের স্থান কত ছিল?", options: ["(A) ১১৮তম", "(B) ১২৭তম", "(C) ১৩০তম", "(D) ১৪০তম"], ans: 2 },
+        { q: "১৪. পশ্চিমবঙ্গের দার্জিলিং অঞ্চল কোন কৃষিজ পণ্যের জন্য বিশেষভাবে পরিচিত?", options: ["(A) জাফরান", "(B) চা", "(C) তুলা", "(D) রাবার"], ans: 1 },
+        { q: "১৫. পশ্চিমবঙ্গের কোন জেলাটি পাট চাষের জন্য বিশেষভাবে পরিচিত?", options: ["(A) জলপাইগুড়ি", "(B) নদিয়া", "(C) পুরুলিয়া", "(D) দার্জিলিং"], ans: 1 },
+        { q: "১৬. ভারতীয় গণপরিষদের প্রথম অধিবেশন কবে অনুষ্ঠিত হয়েছিল?", options: ["(A) ৯ ডিসেম্বর ১৯৪৬", "(B) ২৬ নভেম্বর ১৯৪৯", "(C) ১৫ আগস্ট ১৯৪৭", "(D) ২৬ জানুয়ারি ১৯৫০"], ans: 0 },
+        { q: "১৭. ভারতীয় সংবিধানের কোন অনুচ্ছেদে সাংবিধানিক প্রতিকারের অধিকার নিশ্চিত করা হয়েছে?", options: ["(A) অনুচ্ছেদ ১৪", "(B) অনুচ্ছেদ ১৯", "(C) অনুচ্ছেদ ২১", "(D) অনুচ্ছেদ ৩২"], ans: 3 },
+        { q: "১৮. ভারতীয় সংবিধানে রাষ্ট্র পরিচালনার নির্দেশমূলক নীতিগুলি কোন দেশের সংবিধান থেকে নেওয়া হয়েছে?", options: ["(A) মার্কিন যুক্তরাষ্ট্র", "(B) আয়ারল্যান্ড", "(C) কানাডা", "(D) অস্ট্রেলিয়া"], ans: 1 },
+        { q: "১৯. ভারতের সুপ্রিম কোর্টের বিচারপতিদের অবসর গ্রহণের বয়স কত?", options: ["(A) ৬০ বছর", "(B) ৬২ বছর", "(C) ৬৫ বছর", "(D) ৬৮ বছর"], ans: 2 },
+        { q: "২০. What is the meaning of the idiom “Once in a blue moon”?", options: ["(A) Very frequently", "(B) Very rarely", "(C) At night", "(D) At the right time"], ans: 1 },
+        { q: "২১. ভারতীয় সংবিধানের কোন সংশোধনীর মাধ্যমে মৌলিক কর্তব্য সংযোজিত হয়েছিল?", options: ["(A) ২৪তম সংশোধনী", "(B) ৪২তম সংশোধনী", "(C) ৪৪তম সংশোধনী", "(D) ৫২তম সংশোধনী"], ans: 1 },
+        { q: "২২. ভারতের অর্থনীতিতে মৌলিক পরিকাঠামোর অন্তর্ভুক্ত কোনটি?", options: ["(A) সড়ক ও বিদ্যুৎ", "(B) কেবল খুচরো দোকান", "(C) কেবল গৃহস্থালির ব্যয়", "(D) ব্যক্তিগত বিনোদন"], ans: 0 },
+        { q: "২৩. ২০২৬ সালের কমনওয়েলথ গেমস কোন শহরে অনুষ্ঠিত হওয়ার কথা?", options: ["(A) বার্মিংহাম", "(B) গোল্ড কোস্ট", "(C) গ্লাসগো", "(D) ভিক্টোরিয়া"], ans: 2 },
+        { q: "২৪. ভারতের সবুজ বিপ্লবের সঙ্গে কোন ফসলের উৎপাদন বৃদ্ধির সম্পর্ক সবচেয়ে বেশি?", options: ["(A) চা", "(B) গম", "(C) পাট", "(D) কফি"], ans: 1 },
+        { q: "২৫. মানব উন্নয়ন সূচক (HDI) নির্ধারণে কোন বিষয়গুলি বিবেচিত হয়?", options: ["(A) স্বাস্থ্য, শিক্ষা ও আয়", "(B) কেবল জনসংখ্যা", "(C) কেবল শিল্প উৎপাদন", "(D) কেবল বৈদেশিক বাণিজ্য"], ans: 0 },
+        { q: "২৬. আন্তর্জাতিক মুদ্রা তহবিলের (IMF) সদর দপ্তর কোথায়?", options: ["(A) নিউ ইয়র্ক", "(B) জেনেভা", "(C) ওয়াশিংটন, ডি.সি.", "(D) প্যারিস"], ans: 2 },
+        { q: "২৭. অলিম্পিক গেমসে ব্যক্তিগত বিভাগে স্বাধীন ভারতের প্রথম স্বর্ণপদকজয়ী কে?", options: ["(A) অভিনব বিন্দ্রা", "(B) নীরজ চোপড়া", "(C) রাজ্যবর্ধন সিং রাঠোর", "(D) সুশীল কুমার"], ans: 0 },
+        { q: "২৮. ‘প্যারিস অলিম্পিক ২০২৪-এ একই অলিম্পিকে দুটি পদকজয়ী স্বাধীন ভারতের প্রথম ক্রীড়াবিদ কে?", options: ["(A) পি. ভি. সিন্ধু", "(B) মনু ভাকের", "(C) মীরাবাই চানু", "(D) সাক্ষী মালিক"], ans: 1 },
+        { q: "২৯. কথাকলি কোন রাজ্যের শাস্ত্রীয় নৃত্য?", options: ["(A) তামিলনাড়ু", "(B) কেরল", "(C) ওডিশা", "(D) মণিপুর"], ans: 1 },
+        { q: "৩০. ভারতের প্রথম কৃত্রিম উপগ্রহের নাম কী?", options: ["(A) রোহিণী", "(B) আর্যভট্ট", "(C) ভাস্কর", "(D) ইনস্যাট-১এ"], ans: 1 },
+        { q: "৩১. কম্পিউটারে CPU-এর পূর্ণরূপ কী?", options: ["(A) Central Processing Unit", "(B) Computer Primary Utility", "(C) Central Program Utility", "(D) Control Processing User"], ans: 0 },
+        { q: "৩২. একটি শ্রেণিতে অরুণ ওপর থেকে ১৮তম এবং নিচ থেকে ২৫তম। শ্রেণিতে মোট কতজন শিক্ষার্থী আছে?", options: ["(A) ৪১", "(B) ৪২", "(C) ৪৩", "(D) ৪৪"], ans: 1 },
+        { q: "৩৩. আন্তর্জাতিক যোগ দিবস কবে পালিত হয়?", options: ["(A) ৫ জুন", "(B) ২১ জুন", "(C) ১১ জুলাই", "(D) ১০ ডিসেম্বর"], ans: 1 },
+        { q: "৩৪. কোনো বস্তু জলে ভাসার ক্ষেত্রে কোন নীতিটি গুরুত্বপূর্ণ?", options: ["(A) নিউটনের তৃতীয় সূত্র", "(B) আর্কিমিডিসের নীতি", "(C) ওহমের সূত্র", "(D) কুলম্বের সূত্র"], ans: 1 },
+        { q: "৩৫. ধারাটির পরবর্তী সংখ্যা নির্ণয় করুন: ২, ৬, ১২, ২০, ৩০, ?", options: ["(A) ৩৬", "(B) ৪০", "(C) ৪২", "(D) ৪৮"], ans: 2 },
+        { q: "৩৬. বেকিং সোডার রাসায়নিক নাম কী?", options: ["(A) সোডিয়াম কার্বনেট", "(B) সোডিয়াম বাইকার্বনেট", "(C) ক্যালসিয়াম কার্বনেট", "(D) সোডিয়াম ক্লোরাইড"], ans: 1 },
+        { q: "৩৭. ২৫°C তাপমাত্রায় বিশুদ্ধ জলের pH কত?", options: ["(A) ৩", "(B) ৫", "(C) ৭", "(D) ৯"], ans: 2 },
+        { q: "৩৮. মানুষের রক্তে অক্সিজেন পরিবহনের প্রধান কাজটি করে কোনটি?", options: ["(A) প্লেটলেট", "(B) হিমোগ্লোবিন", "(C) ইনসুলিন", "(D) পিত্তরস"], ans: 1 },
+        { q: "৩৯. মানবদেহে ইনসুলিন কোন অঙ্গ থেকে নিঃসৃত হয়?", options: ["(A) যকৃৎ", "(B) অগ্ন্যাশয়", "(C) বৃক্ক", "(D) প্লীহা"], ans: 1 },
+        { q: "৪০. ওজোন স্তর বায়ুমণ্ডলের কোন স্তরে অবস্থিত?", options: ["(A) ট্রপোস্ফিয়ার", "(B) স্ট্র্যাটোস্ফিয়ার", "(C) মেসোস্ফিয়ার", "(D) থার্মোস্ফিয়ার"], ans: 1 },
+        { q: "৪১. খাদ্যশৃঙ্খলে সবুজ উদ্ভিদকে উৎপাদক বলা হয় কেন?", options: ["(A) তারা অন্য প্রাণী খায়", "(B) তারা সালোকসংশ্লেষের মাধ্যমে খাদ্য তৈরি করে", "(C) তারা মৃতদেহ পচায়", "(D) তারা মাটির সব খনিজ শোষণ করে ফেলে"], ans: 1 },
+        { q: "৪২. পিতার বর্তমান বয়স পুত্রের বয়সের ৩ গুণ। তাঁদের দুজনের বয়সের যোগফল ৪৮ বছর। পুত্রের বয়স কত?", options: ["(A) ১০ বছর", "(B) ১২ বছর", "(C) ১৪ বছর", "(D) ১৬ বছর"], ans: 1 },
+        { q: "৪৩. একটি নল ৬ ঘণ্টায় এবং অন্য একটি নল ৮ ঘণ্টায় একটি ট্যাঙ্ক পূর্ণ করতে পারে। দুটি নল একসঙ্গে খুললে ট্যাঙ্কটি পূর্ণ হতে কত সময় লাগবে?", options: ["(A) ২৪/৭ ঘণ্টা", "(B) ৭/২৪ ঘণ্টা", "(C) ৩ ঘণ্টা", "(D) ৪ ঘণ্টা"], ans: 0 },
+        { q: "৪৪. একটি গাড়ি ঘণ্টায় ৬০ কিমি বেগে ২ ঘণ্টা ৩০ মিনিট চলে। গাড়িটি মোট কত দূরত্ব অতিক্রম করবে?", options: ["(A) ১২০ কিমি", "(B) ১৩০ কিমি", "(C) ১৫০ কিমি", "(D) ১৮০ কিমি"], ans: 2 },
+        { q: "৪৫. একটি পণ্য ৮০০ টাকায় কিনে ৯২০ টাকায় বিক্রি করা হলো। লাভের শতকরা হার কত?", options: ["(A) ১০%", "(B) ১২%", "(C) ১৫%", "(D) ২০%"], ans: 2 },
+        { q: "৪৬. Choose the grammatically correct sentence.", options: ["(A) He do not know me.", "(B) He does not knows me.", "(C) He does not know me.", "(D) He did not knew me."], ans: 2 },
+        { q: "৪৭. দুটি সংখ্যার অনুপাত ৩ : ৫ এবং তাদের যোগফল ৬৪। বড় সংখ্যাটি কত?", options: ["(A) ২৪", "(B) ৩২", "(C) ৪০", "(D) ৪৮"], ans: 2 },
+        { q: "৪৮. Choose the correct article: He is ___ honest man.", options: ["(A) a", "(B) an", "(C) the", "(D) None of the above"], ans: 1 },
+        { q: "৪৯. ৩০% অ্যালকোহলযুক্ত ২০ লিটার দ্রবণের সঙ্গে কত লিটার বিশুদ্ধ অ্যালকোহল মেশালে মিশ্রণটি ৪০% অ্যালকোহলযুক্ত হবে?", options: ["(A) ১০/৩ লিটার", "(B) ৫ লিটার", "(C) ২০/৩ লিটার", "(D) ১০ লিটার"], ans: 0 },
+        { q: "৫০. একটি নৌকার অনুকূলে বেগ ঘণ্টায় ১৮ কিমি এবং প্রতিকূলে বেগ ঘণ্টায় ১০ কিমি। স্থির জলে নৌকার বেগ কত?", options: ["(A) ১২ কিমি/ঘণ্টা", "(B) ১৪ কিমি/ঘণ্টা", "(C) ১৬ কিমি/ঘণ্টা", "(D) ১৮ কিমি/ঘণ্টা"], ans: 1 }
+    ];
+
+    let timerInterval;
+    let timeLeft = 40 * 60; // 40 minutes in seconds
+    let studentData = {};
+
+    function startQuiz(e) {
+        e.preventDefault();
+        
+        const nameInput = document.getElementById('fullName').value.trim();
+        const mobileInput = document.getElementById('mobileNum').value.trim();
+        
+        const nameError = document.getElementById('nameError');
+        const mobileError = document.getElementById('mobileError');
+        
+        nameError.style.display = 'none';
+        mobileError.style.display = 'none';
+        
+        // Validation Regex: Bengali, English characters & spaces only
+        const nameRegex = /^[A-Za-z\u0980-\u09FF\s]+$/;
+        // Validation Regex: Exactly 10 digits
+        const mobileRegex = /^[0-9]{10}$/;
+        
+        let valid = true;
+        
+        if (!nameRegex.test(nameInput)) {
+            nameError.style.display = 'block';
+            valid = false;
+        }
+        
+        if (!mobileRegex.test(mobileInput)) {
+            mobileError.style.display = 'block';
+            valid = false;
+        }
+        
+        if (!valid) return;
+        
+        studentData = { name: nameInput, mobile: mobileInput };
+        
+        document.getElementById('login-sec').classList.add('hidden');
+        document.getElementById('quiz-sec').classList.remove('hidden');
+        document.getElementById('candidate-name').innerText = nameInput;
+        
+        renderQuestions();
+        startTimer();
+    }
+
+    function renderQuestions() {
+        const container = document.getElementById('questions-container');
+        container.innerHTML = '';
+        
+        quizData.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'q-card';
+            
+            let optionsHTML = '';
+            q.options.forEach((opt, optIdx) => {
+                optionsHTML += `
+                    <label class="option-label" id="opt-label-${index}-${optIdx}">
+                        <input type="radio" name="q${index}" value="${optIdx}">
+                        ${opt}
+                    </label>
+                `;
+            });
+            
+            card.innerHTML = `
+                <div class="q-title">${q.q}</div>
+                <div>${optionsHTML}</div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function startTimer() {
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            let mins = Math.floor(timeLeft / 60);
+            let secs = timeLeft % 60;
+            document.getElementById('timer').innerText = `Time Remaining: ${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
+            
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                alert("Time is up! Submitting test automatically.");
+                submitQuiz();
+            }
+        }, 1000);
+    }
+
+    function submitQuiz() {
+        clearInterval(timerInterval);
+        
+        let score = 0;
+        let correctCount = 0;
+        let wrongCount = 0;
+        
+        quizData.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            if (selected) {
+                const val = parseInt(selected.value);
+                if (val === q.ans) {
+                    score += 1;
+                    correctCount++;
+                } else {
+                    score -= 0.25;
+                    wrongCount++;
+                }
+            }
+        });
+
+        studentData.score = score;
+        studentData.total = quizData.length;
+
+        // UI View Toggle
+        document.getElementById('quiz-sec').classList.add('hidden');
+        document.getElementById('result-sec').classList.remove('hidden');
+        document.getElementById('score-text').innerText = `Score: ${score} / ${quizData.length} (Correct: ${correctCount}, Wrong: ${wrongCount})`;
+
+        // Render Review View
+        renderReview();
+
+        // Send Data to Google Sheets
+        sendDataToSheets();
+    }
+
+    function renderReview() {
+        const reviewContainer = document.getElementById('review-container');
+        reviewContainer.innerHTML = '';
+
+        quizData.forEach((q, index) => {
+            const selected = document.querySelector(`input[name="q${index}"]:checked`);
+            const userAns = selected ? parseInt(selected.value) : -1;
+
+            const card = document.createElement('div');
+            card.className = 'q-card';
+
+            let optionsHTML = '';
+            q.options.forEach((opt, optIdx) => {
+                let statusClass = '';
+                
+                if (optIdx === q.ans) {
+                    // Right answer highlighted Green
+                    statusClass = 'correct-ans';
+                }
+                if (userAns === optIdx && userAns !== q.ans) {
+                    // Wrong attempt highlighted Red
+                    statusClass = 'wrong-ans';
+                }
+
+                optionsHTML += `
+                    <div class="option-label ${statusClass}">
+                        ${opt} ${optIdx === q.ans ? ' ✔ (Correct Answer)' : ''} ${userAns === optIdx && userAns !== q.ans ? ' ✖ (Your Choice)' : ''}
+                    </div>
+                `;
+            });
+
+            card.innerHTML = `
+                <div class="q-title">${q.q}</div>
+                <div>${optionsHTML}</div>
+            `;
+            reviewContainer.appendChild(card);
+        });
+    }
+
+    function sendDataToSheets() {
+        if (!SCRIPT_URL || SCRIPT_URL === "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL") {
+            document.getElementById('sub-status').innerText = "Result calculated. (Google Sheets URL not configured)";
+            return;
+        }
+
+        document.getElementById('sub-status').innerText = "Sending data to Google Sheet...";
+
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(studentData)
+        })
+        .then(() => {
+            document.getElementById('sub-status').innerText = "Data successfully saved to Google Sheet!";
+        })
+        .catch(err => {
+            console.error('Error:', err);
+            document.getElementById('sub-status').innerText = "Failed to submit data to Google Sheet.";
+        });
+    }
+</script>
+</body>
+</html>
